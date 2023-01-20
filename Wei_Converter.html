@@ -7,63 +7,103 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <title>Weight Converter</title>
     <style>
-        body{
-            margin-top:70px;
-            background: mediumslateblue;
-            color:cornflowerblue;
-        }
-        h1{
-            display:block;
-            color:black;
-        }
+        * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  height: 100vh;
+  background: linear-gradient(#25ff5f, #0cd943 50%, #ffffff 50%);
+}
+.container {
+  background-color: #ffffff;
+  width: 90vw;
+  font-size: 16px;
+  max-width: 28em;
+  padding: 3em;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  box-shadow: 0 0 3.2em rgba(1, 3, 29, 0.2);
+  border-radius: 0.6em;
+}
+h2 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 1.5em;
+}
+.input-wrapper input {
+  display: block;
+  width: 100%;
+  font-size: 1.35em;
+  padding: 0.4em;
+  border: 1px solid #a0a0a0;
+  border-radius: 0.2em;
+}
+.input-wrapper label {
+  display: block;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 0.25em;
+}
+.input-wrapper:not(:last-child) {
+  margin-bottom: 1.2em;
+}
+@media screen and (max-width: 28em) {
+  .container {
+    font-size: 14px;
+  }
+}
     </style>
 </head>
 <body>
+    
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h1 class="display-4 mb-4">Weight Converter</h1>
-                <form>
-                    <div class="form-group"> 
-                        <input type="number" id="lbsInput" class="form-control-lg" placeholder="Enter Pounds... " >
-                    </div>
-                </form>
-                <div id="output">
-                    <div class="card card-primary mb-2">
-                        <div class="card-block">
-                            <h4>Grams:</h4>
-                            <div id="gramsOutput">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card card-success mb-2">
-                        <div class="card-block">
-                            <h4>Kilograms:</h4>
-                            <div id="kgOutput">
-                            </div>
-                            </div>
-                    </div>
-                    <div class="card card-danger mb-2">
-                        <div class="card-block">
-                        <h4>Ounches:</h4>
-                        <div id="ozOutput">
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
+        <h2>Weight Converter</h2>
+        <div class="input-wrapper">
+          <label for="kg">Kilogram:</label>
+          <input type="number" id="kg" placeholder="Enter Kilos.." />
         </div>
-    </div>
-    <script>
-        document.getElementById('output').style.visibility="hidden";
-        document.getElementById("lbsInput").addEventListener("input",function xyz(event){
-            document.getElementById("output").style.visibility='visible';
-            let lbs=event.target.value;
-            document.getElementById('gramsOutput').innerHTML=lbs/0.0022046;
-            document.getElementById('kgOutput').innerHTML=lbs/2.2046;
-            document.getElementById('ozOutput').innerHTML=lbs*16;  
-        });
-    </script>
+        <div class="input-wrapper">
+          <label for="lb">Pounds:</label>
+          <input type="number" id="lb" placeholder="Enter Pounds.."/>
+        </div>
+        <div class="input-wrapper">
+          <label for="oz">Ounces:</label>
+          <input type="number" id="oz" placeholder="Enter Ounces.."/>
+        </div>
+      </div>
+      <script>
+let kgRef = document.getElementById("kg");
+let lbRef = document.getElementById("lb");
+let ozRef = document.getElementById("oz");
+
+let convertFromKg = () => {
+  let kg = kgRef.value;
+  lbRef.value = (kg * 2.205).toFixed(2);
+  ozRef.value = (kg * 35.274).toFixed(2);
+};
+
+
+let convertFromLb = () => {
+  let lb = lbRef.value;
+  kgRef.value = (lb / 2.205).toFixed(2);
+  ozRef.value = (lb * 16).toFixed(2);
+};
+
+let convertFromOz = () => {
+  let oz = ozRef.value;
+  kgRef.value = (oz / 35.274).toFixed(2);
+  lbRef.value = (oz / 16).toFixed(2);
+};
+
+kgRef.addEventListener("input", convertFromKg);
+lbRef.addEventListener("input", convertFromLb);
+ozRef.addEventListener("input", convertFromOz);
+window.addEventListener("load", convertFromKg);
+      </script>
 </body>
 </html>
